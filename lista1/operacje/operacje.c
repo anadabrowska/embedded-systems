@@ -46,11 +46,11 @@ int main() {
   stdin = stdout = stderr = &uart_file;
 
   while(1) {
-    int8_t a8 = 1, b8 = 1;
-    int16_t a16 = 1, b16 = 1;
-    int32_t a32 = 1, b32 = 1;
-    int64_t a64 = 1, b64 = 1;
-    float af = 1, bf = 1;
+    int8_t a8 = 1, b8 = 1, res8 = 1;
+    int16_t a16 = 1, b16 = 1, res16 = 1;
+    int32_t a32 = 1, b32 = 1, res32 = 1;
+    int64_t a64 = 1, b64 = 1, res64 = 1;
+    float af = 1, bf = 1, resf = 1;
     printf("[int8_t]\r\n");
     scanf("%"SCNd8" %"SCNd8, &a8, &b8);
     printf("Wynik dodwawania int8_t: %"PRId8"\r\n", a8+b8);
@@ -58,19 +58,39 @@ int main() {
     printf("Wynik dzielenia int8_t: %"PRId8"\r\n", a8/b8);
     printf("[int16_t]\r\n");
     scanf("%"SCNd16" %"SCNd16, &a16, &b16);
-    printf("Wynik dodwawania int16_t: %"PRId16"\r\n", a16+b16);
-    printf("Wynik mnozenia int16_t: %"PRId16"\r\n", a16*b16);
-    printf("Wynik dzielenia int16_t: %"PRId16"\r\n", a16/b16);
+    res16 = a16+b16;
+    printf("Wynik dodwawania int16_t: %"PRId16 "\r\n", res16);
+    res16 = a16*b16;
+    printf("Wynik mnozenia int16_t: %"PRId16 "\r\n", res16);
+    res16 = a16/b16;
+    printf("Wynik dzielenia int16_t: %"PRId16 "\r\n", res16);
     printf("[int32_t]\r\n");
     scanf("%"SCNd32" %"SCNd32, &a32, &b32);
-    printf("Wynik dodwawania int32_t: %"PRId32"\r\n", a32+b32);
-    printf("Wynik mnozenia int32_t: %"PRId32"\r\n", a32*b32);
-    printf("Wynik dzielenia int32_t: %"PRId32"\r\n", a32/b32);
+    res32 = a32+b32;
+    printf("Wynik dodwawania int32_t: %"PRId32"\r\n", res32);
+    res32 = a32*b32;
+    printf("Wynik mnozenia int32_t: %"PRId32"\r\n", res32);
+    res32 = a32/b32;
+    printf("Wynik dzielenia int32_t: %"PRId32"\r\n", res32);
+    printf("[int64_t]\r\n");
+    scanf("%"SCNd32" %"SCNd32, &a32, &b32);
+    a64 = (int64_t)a32;
+    b64 = (int64_t)b32;
+    res64 = a64+b64;
+    printf("Wynik dodwawania int64_t: %d\r\n", (int)res64);
+    res64 = a64*b64;
+    printf("Wynik mnozenia int64_t: %d\r\n", (int)res64);
+    res64 = a64+b64;
+    printf("Wynik dzielenia int64_t: %d\r\n", (int)res64);
     printf("[float]\r\n");
-    // scanf("%f %f", &af, &bf);
-    // printf("Wynik dodwawania float: %f\r\n", af+bf);
-    // printf("Wynik mnozenia float: %f\r\n", af*bf);
-    // printf("Wynik dzielenia float: %f\r\n", af/bf);
-
+    scanf("%"SCNd32" %"SCNd32, &a32, &b32);
+    af = (float)a32;
+    bf = (float)b32;
+    resf = af+bf;
+    printf("Wynik dodwawania float: %d\r\n", (int)resf);
+    resf = af*bf;
+    printf("Wynik mnozenia float: %d\r\n", (int)resf);
+    resf = af/bf;
+    printf("Wynik dzielenia float: %d\r\n", (int)resf);
   }
 }
