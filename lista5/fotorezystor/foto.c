@@ -50,8 +50,7 @@ ISR (INT0_vect) {
 
 // przerwanie adc
 ISR(ADC_vect) {
-  // todo: pomiar ohm'ow
-  resistance = (10000 * ADC) / (1024 - ADC);
+  resistance = (10000.0 * (float)ADC) / (1024.0 - (float)ADC);
 }
 
 int main() {

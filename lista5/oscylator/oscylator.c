@@ -30,24 +30,23 @@ int uart_receive(FILE *stream) {
 
 FILE uart_file;
 
-volatile uint16_t time = 0;
+volatile long long time = 0;
 volatile uint16_t frequency = 0;
+uint16_t edge = 0;
 
 // przerwanie na rising edge
 ISR(TIMER1_CAPT_vect) {
-  time = TCNT1;
-  TCNT1 = 0;
-  if(time > 0) // 16000000 / 256 = 62500 (bo preskaler)
-    frequency = 62500 / time;
-}
-
-volatile uint16_t counter = 0;
-ISR(TIMER0_OVF_vect) {
-  if(counter >= 100) {
-    counter = 0;
-    printf("Czestotliwosc: %"PRIu16" Hz\r\n", frequency);
+  if(edge == 0 || edge == 1){
+    edge += 1;
+    TCNT1 = 0;
+  }else if(edge == 2){
+    edge = 3;
+    time = TCNT1;
+    if(time > 0){
+      frequency = 16000000ll / (time * 256ll);
+      printf("Czestotliwosc: %"PRIu16" Hz\r\n", frequency);
+    }
   }
-  counter++;
 }
 
 int main() {
@@ -57,10 +56,6 @@ int main() {
 
   TCCR1B = _BV(ICES1) | _BV(CS12);  // rising edge trigger, preskaler 256
   TIMSK1 = _BV(ICIE1);              // input capture interrupt włączony
-
-  TIMSK0 |= _BV(TOIE0);             // przerwanie overflow
-  TCCR0B |= _BV(CS02) | _BV(CS00);  // preskaler 1024
-  // 16Mhz * 2^4 * 1024 = +- 10ms
 
   set_sleep_mode(SLEEP_MODE_IDLE);
 
